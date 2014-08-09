@@ -3,8 +3,8 @@ package tokauth
 import (
 	"code.google.com/p/go-uuid/uuid"
 	"fmt"
-	"labix.org/v2/mgo"
-	"labix.org/v2/mgo/bson"
+	mgo "gopkg.in/mgo.v2"
+	"gopkg.in/mgo.v2/bson"
 	"time"
 )
 

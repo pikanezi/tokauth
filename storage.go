@@ -1,7 +1,7 @@
 package tokauth
 
 import (
-	"labix.org/v2/mgo"
+	mgo "gopkg.in/mgo.v2"
 	"time"
 )
 
