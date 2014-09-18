@@ -6,6 +6,7 @@ import (
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"time"
+	"code.google.com/p/rsc/scancab/database"
 )
 
 type accessData struct {
@@ -63,7 +64,8 @@ func RefreshAndGetClient(refreshToken string, object interface{}) (err error) {
 	if err = clientCollection.Find(bson.M{"refreshToken": refreshToken}).One(object); err != nil {
 		return
 	}
-	_, err = newAccessData(refreshToken)
+	data, err := newAccessData(refreshToken)
+	object.(*Client).AccessToken = data.AccessToken
 	return err
 }
 
