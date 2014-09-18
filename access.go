@@ -2,7 +2,6 @@ package tokauth
 
 import (
 	"code.google.com/p/go-uuid/uuid"
-	"fmt"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"time"
@@ -80,7 +79,6 @@ func GetRefreshTokenFromAccessToken(accessToken string) (refreshToken string, er
 // GetAccessTokenFromRefreshToken returns the accessToken of the user associated by this refreshToken.
 func GetAccessTokenFromRefreshToken(refreshToken string) (accessToken string, err error) {
 	data := &accessData{}
-	fmt.Println(refreshToken)
 	if err = accessCollection.Find(bson.M{"refreshToken": refreshToken}).One(&data); err != nil {
 		return
 	}
