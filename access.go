@@ -6,7 +6,6 @@ import (
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"time"
-	"code.google.com/p/rsc/scancab/database"
 )
 
 type accessData struct {
