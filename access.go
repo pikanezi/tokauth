@@ -6,6 +6,7 @@ import (
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"time"
+	"fmt"
 )
 
 type accessData struct {
@@ -21,6 +22,7 @@ func newAccessData(refreshToken string) (data *accessData, err error) {
 		AccessToken:  hex.EncodeToString([]byte(uuid.New())),
 		RefreshToken: refreshToken,
 	}
+	fmt.Println(data)
 	_, err = accessCollection.UpsertId(data.AccessToken, data)
 	return
 }
