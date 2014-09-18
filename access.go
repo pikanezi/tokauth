@@ -26,8 +26,8 @@ func newAccessData(refreshToken string) (data *accessData, err error) {
 	}
 	data = &accessData{
 		ExpiresAt:    time.Now().Add(tokenExpiration),
-		AccessToken:  hexAccessToken,
-		RefreshToken: hexRefreshToken,
+		AccessToken:  string(hexAccessToken),
+		RefreshToken: string(hexRefreshToken),
 	}
 	_, err = accessCollection.UpsertId(data.AccessToken, data)
 	return
