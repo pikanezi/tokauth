@@ -17,7 +17,7 @@ type accessData struct {
 // newAccessData creates new AccessData from the ID and insert it in the database.
 func newAccessData(refreshToken string) (data *accessData, err error) {
 	data = &accessData{
-		ExpiresAt:    time.Now().Add(tokenExpiration),
+		ExpiresAt:    time.Now().UTC().Add(tokenExpiration),
 		AccessToken:  hex.EncodeToString([]byte(uuid.New())),
 		RefreshToken: refreshToken,
 	}
