@@ -16,18 +16,10 @@ type accessData struct {
 
 // newAccessData creates new AccessData from the ID and insert it in the database.
 func newAccessData(refreshToken string) (data *accessData, err error) {
-	hexRefreshToken, err := hex.DecodeString(refreshToken)
-	if err != nil {
-		return
-	}
-	hexAccessToken, err := hex.DecodeString(uuid.New())
-	if err != nil {
-		return
-	}
 	data = &accessData{
 		ExpiresAt:    time.Now().Add(tokenExpiration),
-		AccessToken:  string(hexAccessToken),
-		RefreshToken: string(hexRefreshToken),
+		AccessToken:  hex.EncodeToString([]byte(uuid.New())),
+		RefreshToken: hex.EncodeToString([]byte(refreshToken)),
 	}
 	_, err = accessCollection.UpsertId(data.AccessToken, data)
 	return
