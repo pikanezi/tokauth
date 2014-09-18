@@ -25,9 +25,9 @@ func SetClientCollection(collection *mgo.Collection) { clientCollection = collec
 // By default, the AccessToken expiration is set to 10 minutes, to changes it, call SetTokenExpiration before this function.
 func SetAccessCollection(collection *mgo.Collection) {
 	accessCollection = collection
-	accessCollection.DropIndex("createdAt")
+	accessCollection.DropIndex("expiresAt")
 	index := mgo.Index{
-		Key:         []string{"createdAt"},
+		Key:         []string{"expiresAt"},
 		ExpireAfter: 0,
 	}
 	if err := accessCollection.EnsureIndex(index); err != nil {
