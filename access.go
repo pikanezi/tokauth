@@ -19,7 +19,7 @@ func newAccessData(refreshToken string) (data *accessData, err error) {
 	data = &accessData{
 		ExpiresAt:    time.Now().Add(tokenExpiration),
 		AccessToken:  hex.EncodeToString([]byte(uuid.New())),
-		RefreshToken: hex.EncodeToString([]byte(refreshToken)),
+		RefreshToken: refreshToken,
 	}
 	_, err = accessCollection.UpsertId(data.AccessToken, data)
 	return
@@ -28,7 +28,7 @@ func newAccessData(refreshToken string) (data *accessData, err error) {
 // Register a new client. The client must exists in the collection given via the function SetClientCollection.
 // The ID parameter is the ID of the client that needs to be registered.
 func Register(id interface{}) (refreshToken, accessToken string, err error) {
-	refreshToken = uuid.New()
+	refreshToken = hex.EncodeToString([]byte(uuid.New()))
 	data, err := newAccessData(refreshToken)
 	if err != nil {
 		return
