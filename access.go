@@ -59,13 +59,12 @@ func Refresh(refreshToken string) (accessToken string, err error) {
 }
 
 // RefreshAndGetClient refreshes the user and returns it.
-func RefreshAndGetClient(refreshToken string, object interface{}) (err error) {
-	if err = clientCollection.Find(bson.M{"refreshToken": refreshToken}).One(object); err != nil {
-		return
+func RefreshAndGetClient(refreshToken string, object interface{}) (string, error) {
+	if err := clientCollection.Find(bson.M{"refreshToken": refreshToken}).One(object); err != nil {
+		return "", err
 	}
 	data, err := newAccessData(refreshToken)
-	object.(*Client).AccessToken = data.AccessToken
-	return err
+	return data.AccessToken, err
 }
 
 // Authorize check if the given token match with the AccessToken of the client.
