@@ -9,8 +9,7 @@ import (
 )
 
 type accessData struct {
-	// ExpiresAfter is the remaining time in seconds becore the token expires.
-	CreatedAt    time.Time `json:"createdAt,omitempty" bson:"createdAt"`
+	ExpiresAt    time.Time `json:"expiresAt,omitempty" bson:"createdAt"`
 	AccessToken  string    `json:"accessToken,omitempty" bson:"accessToken"`
 	RefreshToken string    `json:"refreshToken,omitempty" bson:"refreshToken"`
 }
@@ -18,7 +17,7 @@ type accessData struct {
 // newAccessData creates new AccessData from the ID and insert it in the database.
 func newAccessData(refreshToken string) (data *accessData, err error) {
 	data = &accessData{
-		CreatedAt:    time.Now(),
+		ExpiresAt:    time.Now().Add(tokenExpiration),
 		AccessToken:  uuid.New(),
 		RefreshToken: refreshToken,
 	}
@@ -39,6 +38,11 @@ func Register(id interface{}) (refreshToken, accessToken string, err error) {
 		return
 	}
 	return
+}
+
+// SetRemainingTime set the new date at which the token will expires.
+func SetRemainingTime(accessToken string, date time.Time) (err error) {
+	return accessCollection.Update(bson.M{"accessToken": accessToken}, bson.M{"expiresAt": date})
 }
 
 // Refresh the AccessData of the user.

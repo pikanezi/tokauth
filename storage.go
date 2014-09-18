@@ -28,7 +28,7 @@ func SetAccessCollection(collection *mgo.Collection) {
 	accessCollection.DropIndex("createdAt")
 	index := mgo.Index{
 		Key:         []string{"createdAt"},
-		ExpireAfter: tokenExpiration,
+		ExpireAfter: 0,
 	}
 	if err := accessCollection.EnsureIndex(index); err != nil {
 		panic(err)
