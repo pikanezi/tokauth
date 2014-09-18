@@ -2,6 +2,7 @@ package tokauth
 
 import (
 	"code.google.com/p/go-uuid/uuid"
+	"encoding/hex"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"time"
@@ -15,10 +16,18 @@ type accessData struct {
 
 // newAccessData creates new AccessData from the ID and insert it in the database.
 func newAccessData(refreshToken string) (data *accessData, err error) {
+	hexRefreshToken, err := hex.DecodeString(refreshToken)
+	if err != nil {
+		return
+	}
+	hexAccessToken, err := hex.DecodeString(uuid.New())
+	if err != nil {
+		return
+	}
 	data = &accessData{
 		ExpiresAt:    time.Now().Add(tokenExpiration),
-		AccessToken:  uuid.New(),
-		RefreshToken: refreshToken,
+		AccessToken:  hexAccessToken,
+		RefreshToken: hexRefreshToken,
 	}
 	_, err = accessCollection.UpsertId(data.AccessToken, data)
 	return
