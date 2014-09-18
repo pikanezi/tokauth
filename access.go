@@ -9,7 +9,7 @@ import (
 )
 
 type accessData struct {
-	ExpiresAt    time.Time `json:"expiresAt,omitempty" bson:"createdAt"`
+	ExpiresAt    time.Time `json:"expiresAt,omitempty" bson:"expiresAt"`
 	AccessToken  string    `json:"accessToken,omitempty" bson:"accessToken"`
 	RefreshToken string    `json:"refreshToken,omitempty" bson:"refreshToken"`
 }
