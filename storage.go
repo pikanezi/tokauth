@@ -12,6 +12,7 @@ var (
 	accessCollection *mgo.Collection
 
 	tokenExpiration = time.Minute * 10
+	IDFieldName = "_id"
 )
 
 // SetTokenExpiration set a new token duration (by default it is set to 10 minutes).
