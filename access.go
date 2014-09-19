@@ -3,10 +3,10 @@ package tokauth
 import (
 	"code.google.com/p/go-uuid/uuid"
 	"encoding/hex"
+	"fmt"
 	mgo "gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"time"
-	"fmt"
 )
 
 type accessData struct {
